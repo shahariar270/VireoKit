@@ -12,6 +12,7 @@ export { default as Button } from "./components/Buttons";
 export { Input } from "./components/Input";
 export { Select } from "./components/Select";
 export { Badge } from "./components/Badge";
+export { Icon } from "./components/Icon";
 
 // overlays & feedback
 export { Modal } from "./components/Modal";
