@@ -1,3 +1,5 @@
+@use '../common/mixins' as *;
+
 // Card-row table (matches pattern-reference §3)
 .st-table {
   width: 100%;

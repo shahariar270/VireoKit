@@ -1,3 +1,5 @@
+@use '../common/mixins' as *;
+
 .st-loading {
   display: flex;
   flex-direction: column;

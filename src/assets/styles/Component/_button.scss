@@ -1,3 +1,5 @@
+@use '../common/mixins' as *;
+
 @mixin btn-slide($hover-color) {
   &::before {
     content: "";

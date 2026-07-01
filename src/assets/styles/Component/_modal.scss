@@ -1,3 +1,5 @@
+@use '../common/mixins' as *;
+
 .st-modal-overlay {
   position: fixed;
   inset: 0;

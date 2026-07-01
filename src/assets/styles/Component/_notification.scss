@@ -1,3 +1,5 @@
+@use '../common/mixins' as *;
+
 .st-toast-wrapper {
   position: fixed;
   top: 20px;

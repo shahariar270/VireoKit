@@ -2,6 +2,8 @@
 // SCSS mixins & helpers for the design system
 // =============================================================
 
+@use "sass:map";
+
 // Breakpoints (match pattern-reference §4)
 $breakpoints: (
   "lg": 768px,
@@ -12,12 +14,12 @@ $breakpoints: (
 // Mobile-first-down: styles apply at/below the given breakpoint.
 // Usage: @include respond-to("lg") { ... }
 @mixin respond-to($name) {
-  @if map-has-key($breakpoints, $name) {
-    @media (max-width: map-get($breakpoints, $name)) {
+  @if map.has-key($breakpoints, $name) {
+    @media (max-width: map.get($breakpoints, $name)) {
       @content;
     }
   } @else {
-    @warn "Unknown breakpoint `#{$name}`. Available: #{map-keys($breakpoints)}.";
+    @warn "Unknown breakpoint `#{$name}`. Available: #{map.keys($breakpoints)}.";
   }
 }
 

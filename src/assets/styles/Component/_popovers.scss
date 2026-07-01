@@ -1,3 +1,5 @@
+@use '../common/mixins' as *;
+
 .st-popover {
   position: relative;
   display: inline-block;

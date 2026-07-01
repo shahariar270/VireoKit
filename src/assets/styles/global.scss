@@ -1,27 +1,27 @@
 // =============================================================
 // Design system global entry
-// Import order: mixins (defs) -> tokens -> reset -> type -> components
+// Import order: tokens -> reset -> type -> components
+// (mixins are @use'd directly by the partials that need them)
 // =============================================================
 
 // foundation
-@import './common/mixins';
-@import './common/root';
-@import './common/reset';
-@import './common/typography';
+@use './common/root';
+@use './common/reset';
+@use './common/typography';
 
 // components
-@import './Component/button';
-@import './Component/input';
-@import './Component/select';
-@import './Component/badge';
-@import './Component/icon';
-@import './Component/loading';
-@import './Component/notification';
-@import './Component/table';
-@import './Component/pagination';
-@import './Component/modal';
-@import './Component/popovers';
-@import './Component/tab';
-@import './Component/drawer';
-@import './Component/breadcrumb';
-@import './Component/layout';
+@use './Component/button';
+@use './Component/input';
+@use './Component/select';
+@use './Component/badge';
+@use './Component/icon';
+@use './Component/loading';
+@use './Component/notification';
+@use './Component/table';
+@use './Component/pagination';
+@use './Component/modal';
+@use './Component/popovers';
+@use './Component/tab';
+@use './Component/drawer';
+@use './Component/breadcrumb';
+@use './Component/layout';
