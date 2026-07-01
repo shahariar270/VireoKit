@@ -27,3 +27,8 @@ export { default as TableContainer } from "./components/Table/TableContainer";
 export { Pagination } from "./components/Pagination";
 export { default as Tab } from "./components/Tab";
 export { Breadcrumb } from "./components/Breadcrumb";
+
+// layout shell
+export { Layout } from "./components/Layout";
+export { Sidebar } from "./components/Sidebar";
+export { Topbar } from "./components/Topbar";
