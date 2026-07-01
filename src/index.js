@@ -11,6 +11,7 @@ export { ThemeProvider, useTheme } from "./theme/ThemeProvider";
 export { default as Button } from "./components/Buttons";
 export { Input } from "./components/Input";
 export { Select } from "./components/Select";
+export { Badge } from "./components/Badge";
 
 // overlays & feedback
 export { Modal } from "./components/Modal";
