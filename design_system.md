@@ -71,7 +71,7 @@ src/
 
 ## 4. Phased Roadmap
 
-> **Build status (branch `st-pakage-build`):** Phases 0–4 components shipped and pushed. Remaining: Icon, Layout shell, Storybook (Phase 5), npm packaging (Phase 6), and the Sass `@import` → `@use` migration.
+> **Build status (branch `st-pakage-build`):** Phases 0–6 complete — all components (incl. Icon + Layout shell), Sass `@use` migration, Storybook, and the npm library build (`dist/index.js` + `dist/style.css`) are shipped and pushed. Remaining polish: skeleton Loading variant, `.d.ts` types, CI/Changesets release, and consumer adoption.
 
 ### Phase 0 — Project hygiene
 - [x] Rename `package.json` `name` to `@shahariar/design-system` (scoped, for future publish).
@@ -91,7 +91,7 @@ src/
 - [x] **Input / TextArea** — label, helper/error text, focus ring, disabled, `multiline`, a11y.
 - [x] **Select** — custom accessible dropdown (no dep); keyboard nav + listbox roles.
 - [x] **Badge** — pill, semantic tints + solid fill, optional dot.
-- [ ] **Icon** — decide icon strategy (icomoon font like the apps, or inline SVG set) and ship a wrapper.
+- [x] **Icon** — inline SVG registry wrapper (17 icons, `currentColor`, tree-shakeable).
 
 ### Phase 3 — Overlays & feedback
 - [x] **Modal** — `.st-modal`, overlay, sizes, header/close, ESC + scroll-lock, `role=dialog`.
@@ -105,37 +105,36 @@ src/
 - [x] **Pagination** — page-size select + prev/next.
 - [x] **Tabs** — pills/underline variants, disabled tabs, `?tab=` sync.
 - [x] **Breadcrumb** — tokenized, auto-derive or explicit `items`, custom separator.
-- [ ] **Layout shell** — Sidebar + Topbar + two-column layout (the two nav shapes in reference §3), responsive collapse at `768px`.
+- [x] **Layout shell** — `Sidebar` + `Topbar` + two-column `Layout`, off-canvas collapse at `768px`.
 
 ### Phase 5 — Storybook & documentation
-- [ ] Install Storybook 8 (Vite builder); load `global.scss` in `.storybook/preview`.
-- [ ] Add addons: **controls/args**, **a11y**, **autodocs**, **themes** (light/dark toolbar toggle).
-- [ ] One `*.stories.jsx` per component with all variants + a "Tokens" docs page (color/type/spacing swatches).
-- [ ] Wire `npm run storybook` / `build-storybook`; optional deploy to Vercel.
+- [x] Storybook 8 (react-vite); loads `global.scss` in `.storybook/preview.jsx`.
+- [x] Addons: **essentials** (controls/args/docs), **a11y**, **themes** (light/dark data-attribute toggle).
+- [x] A `*.stories.jsx` per component + a **Foundation/Design Tokens** page (color/radius/shadow/spacing).
+- [x] Wired `npm run storybook` / `build-storybook` (build verified). _(Vercel/GH-Pages deploy optional.)_
 
-### Phase 6 — npm component library (future)
+### Phase 6 — npm component library
 
 Goal: publish this as an installable, tree-shakeable React component library so any app does `npm i @shahariar/design-system` and `import { Button } from '@shahariar/design-system'`.
 
 **Build & bundle**
-- [ ] Configure Vite in **library mode** (`build.lib`) with `rollupOptions.external` for `react`/`react-dom`; emit **ESM** (and CJS if needed).
-- [ ] Ship styles: compile SCSS to a distributable `dist/style.css` (import once) **and** expose token CSS vars; document how consumers include it.
-- [ ] Generate types: JSDoc/PropTypes now; optionally emit `.d.ts` later (or migrate to TS) so consumers get IntelliSense.
-- [ ] Keep the bundle tree-shakeable — per-component entry points, `"sideEffects": ["*.css","*.scss"]`.
+- [x] Vite **library mode** (`vite.lib.config.js`, `build.lib`) with `react`/`react-dom`/`react-router-dom`/`prop-types` external; emits **ESM** `dist/index.js`.
+- [x] Ship styles: `build:css` compiles SCSS → `dist/style.css`; `./scss` export exposes the source for token reuse.
+- [x] `"sideEffects": ["**/*.css","**/*.scss"]` for tree-shaking. _( `.d.ts` types still TODO.)_
 
 **Package manifest (`package.json`)**
-- [ ] Set `"name": "@shahariar/design-system"`, `"version"` (semver), `"type": "module"`.
-- [ ] Define `"exports"` map (root + `./styles`), `"main"`/`"module"`/`"types"`, and `"files": ["dist"]`.
-- [ ] Move `react`/`react-dom` to `"peerDependencies"`; audit `@reduxjs/toolkit` (see Open Decisions — avoid forcing Redux on consumers).
-- [ ] Add `"prepublishOnly": "npm run build"` and an `.npmignore`/`files` allowlist.
+- [x] `"name": "@shahariar/design-system"`, semver `"version"`, `"type": "module"`.
+- [x] `"exports"` map (`.` + `./styles` + `./scss`), `"main"`/`"module"`, `"files": ["dist","src/assets/styles"]`.
+- [x] `react`/`react-dom`/`react-router-dom` moved to `"peerDependencies"`; app-only deps (redux, react-youtube) demoted to devDeps.
+- [x] `"prepublishOnly": "npm run build:pkg"`.
 
-**Release & CI**
-- [ ] Adopt **Changesets** (or standard-version) for semver bumps + auto CHANGELOG.
+**Release & CI (remaining)**
+- [ ] Adopt **Changesets** for semver bumps + auto CHANGELOG.
 - [ ] GitHub Action: build → lint → `build-storybook` → `npm publish` on tag.
-- [ ] Choose registry: **GitHub Packages** or npm (public/private) — see Open Decisions.
+- [ ] Choose registry: **GitHub Packages** or npm; flip `"private": true` when ready to publish.
 - [ ] Publish Storybook (Vercel/GH Pages) as the public component catalog/docs.
 
-**Adoption**
+**Adoption (remaining)**
 - [ ] Write a migration guide (install, import styles, theme setup, per-component mapping).
 - [ ] Pilot-adopt in one app — recommend **E-commerce/admin** (its tokens already match `_root.scss`) — then roll out to `expense-tracker` and `Prortfolio-2.0`.
 - [ ] Version consumers against a pinned release; iterate via semver.
