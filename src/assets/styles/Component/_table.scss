@@ -1,230 +1,146 @@
-// Table Variables
-$table-border-color: #e0e0e0;
-$table-header-bg: #f8f9fa;
-$table-hover-bg: #f5f5f5;
-$table-stripe-bg: #fafafa;
-$table-text-color: #333;
-$table-padding: 12px 16px;
-$table-border-radius: 8px;
-$table-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-
-// Table Base Styles
-.table {
+// Card-row table (matches pattern-reference §3)
+.st-table {
   width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  background-color: white;
-  box-shadow: $table-shadow;
-  border-radius: $table-border-radius;
-  overflow: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  
-  // Table Header
-  &__header {
-    background-color: $table-header-bg;
-    border-bottom: 2px solid $table-border-color;
-    
-    &-row {
-      &:hover {
-        background-color: $table-header-bg !important;
-      }
-    }
-    
-    &-cell {
-      padding: $table-padding;
-      font-weight: 600;
-      color: $table-text-color;
-      text-align: left;
-      border-bottom: 1px solid $table-border-color;
-      position: relative;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  font-family: var(--font-sans);
+
+  // Header
+  &__header-cell {
+    padding: 16px 24px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    user-select: none;
+
+    &--sortable {
       cursor: pointer;
-      user-select: none;
-      transition: background-color 0.2s ease;
-      
+      padding-right: 28px;
+      position: relative;
+      transition: var(--transition-fast);
+
+      &::after {
+        content: "↕";
+        position: absolute;
+        right: 10px;
+        opacity: 0.4;
+        font-size: 12px;
+      }
       &:hover {
-        background-color: darken($table-header-bg, 2%);
+        color: var(--text-primary);
       }
-      
-      &--sortable {
-        padding-right: 24px;
-        
-        &::after {
-          content: '↕';
-          position: absolute;
-          right: 8px;
-          opacity: 0.5;
-          font-size: 12px;
-        }
-        
-        &--asc::after {
-          content: '↑';
-          opacity: 1;
-        }
-        
-        &--desc::after {
-          content: '↓';
-          opacity: 1;
-        }
+      &--asc::after {
+        content: "↑";
+        opacity: 1;
+      }
+      &--desc::after {
+        content: "↓";
+        opacity: 1;
       }
     }
   }
-  
-  // Table Body
-  &__body {
-    &-row {
-      transition: background-color 0.2s ease;
-      border-bottom: 1px solid $table-border-color;
-      
-      &:last-child {
-        border-bottom: none;
-      }
-      
-      &:nth-child(even) {
-        background-color: $table-stripe-bg;
-      }
-      
-      &:hover {
-        background-color: $table-hover-bg;
-      }
-      
-      &--clickable {
-        cursor: pointer;
-        
-        &:hover {
-          background-color: darken($table-hover-bg, 2%);
-        }
-      }
+
+  // Body — each row reads as a floating card
+  &__body-row {
+    background-color: var(--bg-surface);
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.2s var(--ease-standard), box-shadow 0.2s var(--ease-standard);
+
+    &--clickable {
+      cursor: pointer;
     }
-    
-    &-cell {
-      padding: $table-padding;
-      color: $table-text-color;
-      border-bottom: 1px solid $table-border-color;
-      
-      &:last-child {
-        border-right: none;
-      }
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-medium);
     }
   }
-  
-  // Table Footer
-  &__footer {
-    background-color: $table-header-bg;
-    border-top: 2px solid $table-border-color;
-    
-    &-cell {
-      padding: $table-padding;
-      font-weight: 500;
-      text-align: center;
-      color: lighten($table-text-color, 20%);
+
+  &__body-cell {
+    padding: 20px 24px;
+    color: var(--text-primary);
+    font-size: 0.9375rem;
+    background-clip: padding-box;
+
+    &:first-child {
+      border-top-left-radius: var(--radius-md);
+      border-bottom-left-radius: var(--radius-md);
+    }
+    &:last-child {
+      border-top-right-radius: var(--radius-md);
+      border-bottom-right-radius: var(--radius-md);
     }
   }
-  
-  // Table Empty State
+
+  // Empty state
   &__empty {
     text-align: center;
     padding: 48px 24px;
-    color: lighten($table-text-color, 30%);
-    font-style: italic;
-    
+    color: var(--text-secondary);
+
     &-icon {
-      font-size: 48px;
-      margin-bottom: 16px;
+      font-size: 40px;
+      margin-bottom: 12px;
       opacity: 0.5;
     }
-    
     &-message {
-      font-size: 16px;
+      font-size: 1rem;
       margin: 0;
     }
   }
-  
-  // Table Responsive
-  &--responsive {
-    overflow-x: auto;
-    
-    @media (max-width: 768px) {
-      .table {
-        min-width: 600px;
-      }
-    }
-  }
-  
-  // Table Variants
-  &--striped {
-    .table__body-row:nth-child(even) {
-      background-color: $table-stripe-bg;
-    }
-  }
-  
-  &--bordered {
-    .table__body-cell {
-      border: 1px solid $table-border-color;
-    }
-    
-    .table__header-cell {
-      border: 1px solid $table-border-color;
-    }
-  }
-  
-  &--compact {
-    .table__header-cell,
-    .table__body-cell {
-      padding: 8px 12px;
-    }
-  }
-  
-  // Loading State
+
+  // Loading
   &--loading {
     opacity: 0.7;
     pointer-events: none;
-    
-    .table__body-row {
-      position: relative;
-      
-      &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-        animation: loading 1.5s infinite;
-      }
+  }
+
+  // Variants
+  &--compact &__header-cell,
+  &--compact &__body-cell {
+    padding: 10px 14px;
+  }
+
+  &--bordered &__body-cell {
+    border: 1px solid var(--border-muted);
+  }
+}
+
+// Responsive scroll wrapper
+.st-table--responsive {
+  display: block;
+  overflow-x: auto;
+
+  .st-table {
+    min-width: 600px;
+  }
+
+  @include respond-to("lg") {
+    .st-table {
+      min-width: 600px;
     }
   }
 }
 
-// Loading Animation
-@keyframes loading {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
+// Container wrapper
+.st-table-container {
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-6);
 
-// Table Container
-.table-container {
-  background: white;
-  border-radius: $table-border-radius;
-  overflow: hidden;
-  box-shadow: $table-shadow;
-  
   &__title {
-    padding: 20px 24px 0;
     margin: 0;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 600;
-    color: $table-text-color;
+    color: var(--text-primary);
   }
-  
+
   &__description {
-    padding: 8px 24px 20px;
-    margin: 0;
-    color: lighten($table-text-color, 20%);
-    font-size: 14px;
+    margin: 4px 0 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
   }
 }

@@ -1,0 +1,64 @@
+.st-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-top: var(--space-6);
+  padding: 16px 24px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  font-family: var(--font-sans);
+
+  &__info {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  &__btn {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    background: var(--bg-muted);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition-fast);
+
+    &:hover:not(:disabled) {
+      background: var(--color-secondary);
+      color: var(--color-primary);
+    }
+    &--active {
+      background: var(--color-primary);
+      color: var(--text-white);
+    }
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__size {
+    padding: 6px 10px;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    background: var(--bg-muted);
+    border: 1px solid var(--border-muted);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+}

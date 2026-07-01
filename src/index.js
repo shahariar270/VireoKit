@@ -23,5 +23,6 @@ export { NotificationProvider, useNotification } from "./components/Notification
 // data & navigation
 export { default as Table } from "./components/Table";
 export { default as TableContainer } from "./components/Table/TableContainer";
+export { Pagination } from "./components/Pagination";
 export { default as Tab } from "./components/Tab";
 export { Breadcrumb } from "./components/Breadcrumb";
