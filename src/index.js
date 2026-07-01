@@ -10,6 +10,7 @@ export { ThemeProvider, useTheme } from "./theme/ThemeProvider";
 // primitives
 export { default as Button } from "./components/Buttons";
 export { Input } from "./components/Input";
+export { Select } from "./components/Select";
 
 // overlays & feedback
 export { Modal } from "./components/Modal";
