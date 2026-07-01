@@ -1,147 +1,164 @@
-# Shared Design System
+# Design System — Build Plan
 
-Consolidated UI pattern reference derived from three existing frontends:
-- **expense-tracker** (`G:/MERN/expense-tracker/client`) — Apple-inspired, blue accent
-- **E-commerce admin** (`G:/MERN/E-commerce/admin`) — corporate blue/purple accent
-- **Prortfolio-2.0** (`G:/MERN/Prortfolio-2.0/client`) — teal accent, dark mode support
+A plan for turning this repo (`G:/react/designSystem`) into a real, reusable, themeable React + SCSS design system. The extracted UI patterns that this system targets are documented in [pattern-reference.md](./pattern-reference.md) — that file is the **spec** (what "done" looks like); this file is the **plan** (how we get there).
 
-All three already share the same DNA: plain **SCSS with CSS custom properties**, a `.st-` class prefix, and a `component--variant--size` BEM-ish naming scheme. This document merges them into one canonical system for this `designSystem` package, keeping each project's actual token values as a "theme" so any of the three can consume the same component code.
+> **Decisions locked for v1**
+> - **Docs/preview:** Storybook (Storybook 8 on Vite).
+> - **Language:** stay **JSX + PropTypes/JSDoc** (all three consumer apps use JSX/`jsconfig`; TypeScript is a possible later upgrade, not v1).
+> - **Distribution:** build **standalone first**, then ship it as a proper **npm component library** (`@shahariar/design-system`) that any app installs and imports from. This is the eventual target (see [Phase 6](#phase-6--npm-component-library-future)); it is **not** a v1 blocker.
 
 ---
 
-## 1. Methodology
+## 1. Goals
 
-- **SCSS**, no utility framework (no Tailwind/MUI/styled-components).
-- Design tokens live as **CSS custom properties on `:root`**, not Sass variables — enables runtime theming.
-- File layout: `assets/styles/global.scss` (entry) → `common/` (variables, typography, utility classes) → `Component/` (one partial per component).
-- Class naming: `.st-{component}` for the block, `.btn--{variant}`, `.btn--{size}` for BEM-style modifiers, `.table__header-cell` for BEM elements, `.is-active` / `--disabled` for state.
-- Theming: expose the same variable *names* across projects with different values (see §2). Dark mode (as done in Prortfolio-2.0) toggles via `[data-theme="dark"]` overriding the same custom properties.
+1. **One source of truth** for tokens (color, type, spacing, radius, shadow, motion) as CSS custom properties.
+2. **Themeable** — same component code, swappable themes via a `:root` / `[data-theme]` token set (matches the 3 apps' existing values in the reference).
+3. **Consistent component API** — predictable props, variants, and class naming across every component.
+4. **Documented & previewable** — every component has a Storybook story with controls and usage notes.
+5. **Portable** — packaged so `expense-tracker`, `E-commerce/admin`, and `Prortfolio-2.0` can adopt it later with minimal churn.
 
-## 2. Design Tokens
+## 2. Current State (baseline)
 
-### 2.1 Color roles (same variable names, per-project values)
+**Stack:** Vite 6, React 19, Sass 1.89, Redux Toolkit, react-router 6.
 
-| Role | expense-tracker | E-commerce admin | Prortfolio-2.0 (light / dark) |
-|---|---|---|---|
-| `--color-primary` | `#007AFF` | `#2988ee` | `#0f766e` / `#14b8a6` |
-| `--color-primary-hover` | `#0062CC` | `#8ec5fc` | `#115e59` / `#2dd4bf` |
-| `--color-secondary` | `#E8E8ED` | `#fff6f2` | `#2563eb` / `#60a5fa` |
-| `--color-success` | `#34C759` | `#22c55e` | — |
-| `--color-error` | `#FF3B30` | `#ef4444` | `#dc2626` |
-| `--color-warning` | `#FF9F0A` | `#f59e0b` | — |
-| `--text-primary` | `#1D1D1F` | `#2f3a4a` | `#172033` / `#e2e8f0` |
-| `--text-secondary` | `#86868B` | `#5a6b7b` | `#64748b` / `#94a3b8` |
-| `--text-disabled` | `#BCBCC2` | `#9aa8b6` | — |
-| `--text-white` | `#FFFFFF` | `#FFFFFF` | `#ffffff` |
-| `--bg-body` | `#F5F5F7` | `#f5f9ff` | `--layout-bg: #e8f1f3` / `#0b1220` |
-| `--bg-surface` | `#FFFFFF` | `#FFFFFF` | `#ffffff` / `#111c31` |
-| `--bg-muted` | `#F2F2F7` | `#eef3fa` | `#f8fafc` / `#0f172a` |
-| `--border-default` | `#D2D2D7` | `#e3eaf3` | `#d8e2eb` / `#334155` |
-| `--border-focus` | `#007AFF` | `#8ec5fc` | `--color-primary` |
+**Exists today:**
+- Token layer: `src/assets/styles/common/_root.scss` (CSS vars — **colors only**) + `_typography.scss` (Sass maps `$font-sizes/$font-weights/$line-heights/$letter-spacing` + `.text-*` utility classes and `.h1–.h6/.p/.span`).
+- Component partials in `src/assets/styles/Component/`: button, drawer, loading, modal, notification, popovers, tab, table.
+- Component JSX in `src/components/`: Buttons, Breadcrumb, Loading, Modal, Notifications, Popover, Select, Tab, Table (+TableContainer), drawer.
+- `global.scss` imports the partials; `main.jsx` wires `NotificationProvider` + router; `App.jsx` demos components ad-hoc alongside `practice/` code.
 
-**Rule going forward:** every new project theme must define this exact variable set. Component SCSS should only ever reference the variable name, never a literal hex — that's what already makes the expense-tracker and E-commerce codebases nearly drop-in compatible.
+**Gaps to close:**
+- No **spacing / radius / shadow / z-index / transition / breakpoint** tokens.
+- Token inconsistency: `_typography.scss` `$text-colors` are **hardcoded** (`#333`, `#666`…) instead of referencing the `--text-*` CSS vars in `_root.scss`.
+- `Select` appears empty and neither `Select` nor `Breadcrumb` has a wired-in style partial (`global.scss` doesn't import them).
+- No **Input**, **Badge**, or **Icon** primitive; no **Layout/Sidebar/Topbar** shell components.
+- Inconsistent prop APIs (e.g. `Button` uses `onclick` + `label` instead of React-idiomatic `onClick` + `children`).
+- No dark-mode wiring (tokens support it, nothing toggles it).
+- No Storybook, no tests, no prop-types; `package.json` name is still `protfolio`.
 
-### 2.2 Typography
+## 3. Target Architecture
 
-- Font stacks differ (Inter/SF Pro in expense-tracker & portfolio, Roboto in E-commerce) — keep font-family as a themeable variable (`--font-sans`), everything else shared.
-- Shared numeric scale (expense-tracker & E-commerce use this verbatim; portfolio uses `clamp()` for the same steps to get fluid headings):
+```
+src/
+  tokens/                 # SCSS token layer (single source of truth)
+    _colors.scss          # semantic color vars per theme (:root + [data-theme="dark"])
+    _typography.scss      # font stacks, size/weight/line-height/tracking maps
+    _spacing.scss         # spacing scale (8/12/16/20/24/32) as vars + map
+    _radius.scss          # --radius-sm/md/lg/pill
+    _shadow.scss          # --shadow-soft/medium/premium
+    _motion.scss          # transition durations + easings
+    _layout.scss          # z-index scale + breakpoints (Sass mixins)
+    _index.scss           # forwards all token partials
+  styles/
+    global.scss           # @use tokens + component styles + resets
+    _reset.scss
+    utilities/            # .text-*, flex/gap helpers (from current typography util)
+  components/
+    <Component>/
+      index.jsx
+      <Component>.stories.jsx
+      _styles.scss        # or keep in styles/Component/ — pick one, see Phase 1
+      README.md           # short usage + prop table (optional; Storybook autodocs preferred)
+  theme/
+    ThemeProvider.jsx     # sets [data-theme], exposes useTheme()
+```
 
-| Token | Size |
-|---|---|
-| `--text-xs` | 12px |
-| `--text-sm` | 14px |
-| `--text-base` | 16px |
-| `--text-lg` | 18px |
-| `--text-xl` | 20px |
-| `--text-2xl` | 24px |
-| `--text-3xl` | 30px |
-| `--text-4xl` | 36px |
-| `--text-5xl` | 48px |
+**Conventions**
+- Class naming: block `.st-{component}`, modifiers `--{variant}` / `--{size}` / `--{state}`, elements `__{part}` (BEM-ish, matches reference).
+- Every component style references **token vars only** — never a literal hex/px for a themeable value.
+- Migrate SCSS from `@import` → `@use`/`@forward` (Sass deprecates `@import`).
+- Prop API: `children` for content, `onClick`/`onChange` (camelCase), `variant`, `size`, `disabled`, `className` passthrough; PropTypes on every component.
 
-- Weights: 400 / 500 / 600 / 700 (portfolio adds 800 for uppercase "eyebrow" labels).
-- Headings default to weight 600–700; body defaults to 400.
+## 4. Phased Roadmap
 
-### 2.3 Spacing, radius, shadow
+### Phase 0 — Project hygiene
+- [ ] Rename `package.json` `name` to `@shahariar/design-system` (scoped, for future publish).
+- [ ] Move `practice/` and playground code out of the component path (keep in a `sandbox/` route or delete).
+- [ ] Add ESLint rule pass + format; ensure `npm run dev/build/lint` are clean.
+- [ ] Decide style-file location (co-locate `_styles.scss` in each component folder **or** keep central `styles/Component/`) and apply consistently.
 
-- Spacing scale (px): **8, 12, 16, 20, 24, 32** — used consistently for padding/gaps across all three.
-- Border radius:
-  - `--radius-sm`: 4–8px (inputs, small buttons)
-  - `--radius-md`: 8–12px (buttons, cards, table rows)
-  - `--radius-lg`: 16–24px (modals, containers)
-  - `--radius-pill`: 999px / 20px (badges)
-- Shadows (elevation ladder, same shape across projects, opacity/color themed):
-  - `--shadow-soft`: `0 4px 12px rgba(0,0,0,.05–.08)`
-  - `--shadow-medium`: `0 8px 24px rgba(0,0,0,.08–.12)`
-  - `--shadow-premium`: `0 20px 40px rgba(0,0,0,.12)` (modals, hero panels)
-- Standard transition: `all 0.2s–0.3s ease` (or `cubic-bezier(0.4,0,0.2,1)`).
+### Phase 1 — Token foundation (the critical path)
+- [ ] Build `src/tokens/` partials for **color, typography, spacing, radius, shadow, motion, z-index, breakpoints** (values from [pattern-reference.md §2](./pattern-reference.md)).
+- [ ] Fix the typography/color inconsistency — `$text-colors` must resolve to the `--text-*` vars.
+- [ ] Add `[data-theme="dark"]` overrides (portfolio already proves the pattern).
+- [ ] Provide Sass mixins: `respond-to($bp)`, `elevation($level)`, `transition($props)`.
+- **Exit criteria:** a single `@use 'tokens'` gives access to every design decision; no component hardcodes a themeable value.
 
-## 3. Component Patterns
+### Phase 2 — Primitives
+- [ ] **Button** — normalize API (`children`, `onClick`), variants `primary|secondary|transparent|danger`, sizes `sm|md|lg`, `loading`/`disabled` states, icon slot.
+- [ ] **Input / TextArea** — label, helper/error text, focus ring, disabled, error state (new).
+- [ ] **Select** — implement the empty component (custom, no `react-select` dep); keyboard + a11y.
+- [ ] **Badge** — pill, semantic tints (success/warning/error/info) (new).
+- [ ] **Icon** — decide icon strategy (icomoon font like the apps, or inline SVG set) and ship a wrapper.
 
-These are the components already present in `src/components/` of this design-system package — treat this as the spec for each.
+### Phase 3 — Overlays & feedback
+- [ ] **Modal** — align to reference (overlay, sizes, header/close, focus trap, ESC to close).
+- [ ] **Drawer** — edge slide, overlay, focus management.
+- [ ] **Popover** — trigger positioning, click-outside, arrow.
+- [ ] **Toast/Notifications** — keep provider/hook API, add types + auto-dismiss + progress bar + pause-on-hover.
+- [ ] **Loading** — spinner + skeleton variant.
 
-### Button (`Buttons/`)
-`.btn` base + `.btn--{primary|secondary|transparent|danger|edit|delete}` color variant + `.btn--{sm|md|lg}` size + optional `.btn__border--{style}`.
-- Disabled: opacity 0.5–0.6, `cursor: not-allowed`, no hover transform.
-- Hover: `translateY(-1px)` + shadow lift, or a sliding `::before` fill (E-commerce style) — pick one animation idiom per theme, not both.
+### Phase 4 — Data & navigation
+- [ ] **Table** — card-row style, sortable headers, empty/loading states.
+- [ ] **Pagination** — page-size select + prev/next (extract from Table).
+- [ ] **Tabs** — pill/underline variants, controlled + uncontrolled.
+- [ ] **Breadcrumb** — wire styles, separator, current-page state.
+- [ ] **Layout shell** — Sidebar + Topbar + two-column layout (the two nav shapes in reference §3), responsive collapse at `768px`.
 
-### Input / Select (`Select/`, form partials)
-- Base fill style: muted background, transparent/subtle border, `--radius-sm`/`md`.
-- Focus: border → `--border-focus`, plus a 3–4px tinted ring `box-shadow: 0 0 0 4px rgba(primary, .1–.15)`.
-- Disabled: opacity 0.5–0.7, `not-allowed` cursor.
-- Error state: red border/text via `--color-error`, helper text 12–13px below field.
-- `Select` wraps `react-select`; restyle via `classNamePrefix` to match the same tokens (control height ~42–46px, menu uses `--shadow-medium`).
+### Phase 5 — Storybook & documentation
+- [ ] Install Storybook 8 (Vite builder); load `global.scss` in `.storybook/preview`.
+- [ ] Add addons: **controls/args**, **a11y**, **autodocs**, **themes** (light/dark toolbar toggle).
+- [ ] One `*.stories.jsx` per component with all variants + a "Tokens" docs page (color/type/spacing swatches).
+- [ ] Wire `npm run storybook` / `build-storybook`; optional deploy to Vercel.
 
-### Modal (`Modal/`)
-- `.modal-overlay`: fixed inset, `rgba(0,0,0,.5)`, centers content, `z-index: 50`.
-- `.modal`: max-width ~400px (90% on mobile), `--bg-surface`, `--radius-lg`, `--shadow-premium`/`0 10px 25px rgba(0,0,0,.2)`, padding 1.5rem.
-- `.modal-header`: flex space-between with a borderless `.modal-close` (font-size 1.5rem, hover darkens).
+### Phase 6 — npm component library (future)
 
-### Drawer (`drawer/`)
-- Fixed to one edge, `translateX(100%)` ↔ `translateX(0)` transition, own dim overlay (`rgba(0,0,0,.4)`).
+Goal: publish this as an installable, tree-shakeable React component library so any app does `npm i @shahariar/design-system` and `import { Button } from '@shahariar/design-system'`.
 
-### Popover (`Popover/`)
-- Absolutely positioned relative to trigger, small fixed width (~240px), `--bg-surface`, `--shadow-soft`, thin border, optional arrow via rotated square.
+**Build & bundle**
+- [ ] Configure Vite in **library mode** (`build.lib`) with `rollupOptions.external` for `react`/`react-dom`; emit **ESM** (and CJS if needed).
+- [ ] Ship styles: compile SCSS to a distributable `dist/style.css` (import once) **and** expose token CSS vars; document how consumers include it.
+- [ ] Generate types: JSDoc/PropTypes now; optionally emit `.d.ts` later (or migrate to TS) so consumers get IntelliSense.
+- [ ] Keep the bundle tree-shakeable — per-component entry points, `"sideEffects": ["*.css","*.scss"]`.
 
-### Table (`Table/`, `Pagination.jsx`, `TableContainer.jsx`)
-- **Card-row table**: `border-collapse: separate; border-spacing: 0 8px;` — every row looks like a floating card.
-- `.table__header-cell`: uppercase, `--text-secondary`, letter-spacing .05em, optional sortable `↕` affordance.
-- `.table__body-row`: `--bg-surface`, `--radius-md`; hover → `translateY(-2px)` + `--shadow-medium`.
-- `.table__body-cell`: padding `20px 24px`.
-- Pagination bar: own card (`--bg-surface`, `--radius-lg`, `--shadow-soft`), page-size select + prev/next buttons using the muted button style.
+**Package manifest (`package.json`)**
+- [ ] Set `"name": "@shahariar/design-system"`, `"version"` (semver), `"type": "module"`.
+- [ ] Define `"exports"` map (root + `./styles`), `"main"`/`"module"`/`"types"`, and `"files": ["dist"]`.
+- [ ] Move `react`/`react-dom` to `"peerDependencies"`; audit `@reduxjs/toolkit` (see Open Decisions — avoid forcing Redux on consumers).
+- [ ] Add `"prepublishOnly": "npm run build"` and an `.npmignore`/`files` allowlist.
 
-### Tab (`Tab/`)
-- Pill container: `--bg-secondary` background, `--radius-md`, padding 4px.
-- Each tab button: `--radius-sm`, active = solid `--color-primary` fill + white text; inactive = `--text-secondary`.
-- Content panel fades in (`0.2s ease`) below the tab bar.
+**Release & CI**
+- [ ] Adopt **Changesets** (or standard-version) for semver bumps + auto CHANGELOG.
+- [ ] GitHub Action: build → lint → `build-storybook` → `npm publish` on tag.
+- [ ] Choose registry: **GitHub Packages** or npm (public/private) — see Open Decisions.
+- [ ] Publish Storybook (Vercel/GH Pages) as the public component catalog/docs.
 
-### Badge (embedded in Table/Notifications)
-- Pill radius, tinted background at 10% of the semantic color + solid text of that color (e.g. success/income = green tint+text, error/expense = red tint+text).
+**Adoption**
+- [ ] Write a migration guide (install, import styles, theme setup, per-component mapping).
+- [ ] Pilot-adopt in one app — recommend **E-commerce/admin** (its tokens already match `_root.scss`) — then roll out to `expense-tracker` and `Prortfolio-2.0`.
+- [ ] Version consumers against a pinned release; iterate via semver.
 
-### Notifications / Toast (`Notifications/`)
-- Fixed top-right stack, `z-index: 9999`, `gap: 10–12px`.
-- Each toast: left color bar or solid background per type (info/success/warning/error), slide/fade-in animation (~0.3s), optional auto-dismiss progress bar.
+## 5. Quality Bar (applies to every component)
 
-### Breadcrumb (`Breadcrumb/`)
-- Inline flex list, `/` or similar text separator, current segment in `--text-primary`, others in `--text-secondary`.
+- **Accessibility:** semantic elements, keyboard operable, visible focus ring, ARIA where needed, respects `prefers-reduced-motion`.
+- **Responsive:** works at the `768px` / `600px` / `475px` breakpoints from the reference.
+- **Theming:** renders correctly in light and dark; zero hardcoded themeable values.
+- **API:** PropTypes + sensible defaults + `className`/`style` passthrough; documented in its story.
+- **Motion:** default `0.2s–0.3s ease`; longer/spring timing reserved for marketing surfaces only.
 
-### Loading (`Loading/`)
-- Centered spinner, `border-radius: 50%`, one accent border side, `animation: spin 1s linear infinite`.
+## 6. Milestones
 
-### Navigation shell (sidebar / topbar / two-column layout)
-Three shapes seen, pick per app type:
-1. **Sidebar + topbar** (E-commerce, expense-tracker): fixed 250–280px sidebar, `--bg-surface`/dark variant, active link = solid `--color-primary` pill; topbar sticky with breadcrumb.
-2. **Sticky split layout** (Portfolio): fixed-width left identity panel + scrollable right content panel, glassmorphic sticky header (`backdrop-filter: blur(14px)`).
-Both collapse to a single column with an off-canvas/stacked nav under `768px`.
+| Milestone | Contents | Definition of done |
+|---|---|---|
+| **M1 — Foundations** | Phase 0 + 1 | Token layer complete, dark mode toggles, build clean |
+| **M2 — Primitives + Storybook** | Phase 2 + 5 (bootstrap) | Button/Input/Select/Badge/Icon shipped with stories |
+| **M3 — Overlays & Feedback** | Phase 3 | Modal/Drawer/Popover/Toast/Loading done + stories |
+| **M4 — Data & Nav** | Phase 4 | Table/Pagination/Tabs/Breadcrumb/Layout done + stories |
+| **M5 — npm library & adopt** | Phase 6 | Published as `@shahariar/design-system` on a registry + one app migrated to the package |
 
-## 4. Responsive Breakpoints
+## 7. Open Decisions (revisit before the relevant phase)
 
-- `max-width: 768px` — primary mobile breakpoint (sidebar/drawer collapses, padding drops from 24px → 16px).
-- `max-width: 600px` / `475px` — secondary tightening for type size and page padding on the smallest screens.
-
-## 5. Adoption Rules for New/Shared Components
-
-1. Reference tokens (`var(--color-primary)`), never hex, inside any component partial added to this package.
-2. Every component ships a base block class (`.st-{name}` or bare semantic name) plus BEM `--modifier` variants for color/size/state — don't invent a new naming style per component.
-3. Elevation is expressed only through the three shadow tokens (`soft`/`medium`/`premium`) — no ad-hoc `box-shadow` values.
-4. Motion defaults to `0.2s–0.3s ease`; reserve longer/spring-like timing for hero/marketing surfaces only (as Portfolio does), not for form/table components.
-5. New theme = new set of token values under a project-level `:root` (or `[data-theme]`) block; component SCSS itself never changes between projects.
+- Icon strategy: reuse the icomoon font already in the apps, or move to an inline SVG icon set?
+- Style-file location: co-locate per component vs. central `styles/Component/`.
+- Redux dependency: the current Notification system uses Redux Toolkit — keep it, or make the toast store internal so consumers aren't forced onto Redux?
+- Distribution registry (Phase 6): GitHub Packages vs. private npm.
