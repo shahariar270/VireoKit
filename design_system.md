@@ -71,38 +71,40 @@ src/
 
 ## 4. Phased Roadmap
 
+> **Build status (branch `st-pakage-build`):** Phases 0–4 components shipped and pushed. Remaining: Icon, Layout shell, Storybook (Phase 5), npm packaging (Phase 6), and the Sass `@import` → `@use` migration.
+
 ### Phase 0 — Project hygiene
-- [ ] Rename `package.json` `name` to `@shahariar/design-system` (scoped, for future publish).
+- [x] Rename `package.json` `name` to `@shahariar/design-system` (scoped, for future publish).
 - [ ] Move `practice/` and playground code out of the component path (keep in a `sandbox/` route or delete).
-- [ ] Add ESLint rule pass + format; ensure `npm run dev/build/lint` are clean.
-- [ ] Decide style-file location (co-locate `_styles.scss` in each component folder **or** keep central `styles/Component/`) and apply consistently.
+- [x] Ensure `npm run build` is clean (only Sass `@import`/global-builtin deprecation warnings remain — see below).
+- [x] Style-file location decided: keep central `src/assets/styles/Component/` partials.
 
 ### Phase 1 — Token foundation (the critical path)
-- [ ] Build `src/tokens/` partials for **color, typography, spacing, radius, shadow, motion, z-index, breakpoints** (values from [pattern-reference.md §2](./pattern-reference.md)).
-- [ ] Fix the typography/color inconsistency — `$text-colors` must resolve to the `--text-*` vars.
-- [ ] Add `[data-theme="dark"]` overrides (portfolio already proves the pattern).
-- [ ] Provide Sass mixins: `respond-to($bp)`, `elevation($level)`, `transition($props)`.
-- **Exit criteria:** a single `@use 'tokens'` gives access to every design decision; no component hardcodes a themeable value.
+- [x] Token layer for **color, typography, spacing, radius, shadow, motion, z-index, breakpoints** (in `common/_root.scss` CSS vars + `_typography.scss` maps).
+- [x] Fix the typography/color inconsistency — `$text-colors` now resolve to the `--text-*` vars.
+- [x] Add `[data-theme="dark"]` overrides + `ThemeProvider`/`useTheme`.
+- [x] Sass mixins: `respond-to($bp)`, `focus-ring`, `reduced-motion`, `truncate` (`common/_mixins.scss`).
+- [ ] **Follow-up:** migrate SCSS from `@import` → `@use`/`@forward` and `sass:map` (clears remaining deprecation warnings).
 
 ### Phase 2 — Primitives
-- [ ] **Button** — normalize API (`children`, `onClick`), variants `primary|secondary|transparent|danger`, sizes `sm|md|lg`, `loading`/`disabled` states, icon slot.
-- [ ] **Input / TextArea** — label, helper/error text, focus ring, disabled, error state (new).
-- [ ] **Select** — implement the empty component (custom, no `react-select` dep); keyboard + a11y.
-- [ ] **Badge** — pill, semantic tints (success/warning/error/info) (new).
+- [x] **Button** — `.st-btn`, `children`+`onClick` API (back-compat `label`/`onclick`), variants `primary|secondary|danger|transparent`, sizes `sm|md|lg`, `loading`/`disabled`, focus-ring, icon slots.
+- [x] **Input / TextArea** — label, helper/error text, focus ring, disabled, `multiline`, a11y.
+- [x] **Select** — custom accessible dropdown (no dep); keyboard nav + listbox roles.
+- [x] **Badge** — pill, semantic tints + solid fill, optional dot.
 - [ ] **Icon** — decide icon strategy (icomoon font like the apps, or inline SVG set) and ship a wrapper.
 
 ### Phase 3 — Overlays & feedback
-- [ ] **Modal** — align to reference (overlay, sizes, header/close, focus trap, ESC to close).
-- [ ] **Drawer** — edge slide, overlay, focus management.
-- [ ] **Popover** — trigger positioning, click-outside, arrow.
-- [ ] **Toast/Notifications** — keep provider/hook API, add types + auto-dismiss + progress bar + pause-on-hover.
-- [ ] **Loading** — spinner + skeleton variant.
+- [x] **Modal** — `.st-modal`, overlay, sizes, header/close, ESC + scroll-lock, `role=dialog`.
+- [x] **Drawer** — left/right slide, overlay, ESC close, a11y.
+- [x] **Popover** — hover/click trigger, click-outside, arrow, left/right align.
+- [x] **Toast/Notifications** — provider/hook API, semantic types + icon + per-toast duration.
+- [x] **Loading** — spinner, sizes, label, fullscreen; reduced-motion aware. _(skeleton variant TODO)_
 
 ### Phase 4 — Data & navigation
-- [ ] **Table** — card-row style, sortable headers, empty/loading states.
-- [ ] **Pagination** — page-size select + prev/next (extract from Table).
-- [ ] **Tabs** — pill/underline variants, controlled + uncontrolled.
-- [ ] **Breadcrumb** — wire styles, separator, current-page state.
+- [x] **Table** — card-row style, sortable headers, empty/loading/compact/bordered.
+- [x] **Pagination** — page-size select + prev/next.
+- [x] **Tabs** — pills/underline variants, disabled tabs, `?tab=` sync.
+- [x] **Breadcrumb** — tokenized, auto-derive or explicit `items`, custom separator.
 - [ ] **Layout shell** — Sidebar + Topbar + two-column layout (the two nav shapes in reference §3), responsive collapse at `768px`.
 
 ### Phase 5 — Storybook & documentation
