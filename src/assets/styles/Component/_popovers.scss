@@ -1,77 +1,60 @@
-$border-color: #ddd;
-$bg-color: #fff;
-$text-color: #444;
+.st-popover {
+  position: relative;
+  display: inline-block;
 
-.popover-container {
-    position: relative;
-    display: inline-block;
+  &__trigger {
+    padding: 8px 14px;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    border: 1px solid var(--border-default);
+    background-color: var(--bg-surface);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-base);
 
-    .btn {
-        padding: 6px 12px;
-        font-size: 14px;
-        border: 1px solid $border-color;
-        background-color: $bg-color;
-        cursor: pointer;
-        border-radius: 6px;
-        transition: background-color 0.2s;
-
-        &:hover {
-            background-color: lighten($bg-color, 5%);
-        }
+    &:hover {
+      background-color: var(--bg-muted);
     }
-
-    .popover {
-        position: absolute;
-        top: 120%;
-        left: 0;
-        background: $bg-color;
-        border: 1px solid $border-color;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 240px;
-        z-index: 10;
-        padding: 12px;
-
-        .popover-arrow {
-            position: absolute;
-            top: -6px;
-            left: 16px;
-            width: 12px;
-            height: 12px;
-            background: $bg-color;
-            border-left: 1px solid $border-color;
-            border-top: 1px solid $border-color;
-            transform: rotate(45deg);
-        }
-
-        .popover-body {
-            .popover-title {
-                font-weight: 600;
-                margin-bottom: 8px;
-                font-size: 14px;
-            }
-
-            .popover-text {
-                font-size: 13px;
-                margin-bottom: 10px;
-                color: $text-color;
-            }
-
-            .input {
-                width: 100%;
-                padding: 6px 8px;
-                font-size: 13px;
-                border: 1px solid $border-color;
-                border-radius: 6px;
-
-                &:focus {
-                    outline: none;
-                    border-color: darken($border-color, 10%);
-                }
-            }
-        }
+    &:focus-visible {
+      @include focus-ring;
     }
-}
-.btn-popover {
-    color: #444;
+  }
+
+  &__panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 240px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-muted);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-medium);
+    z-index: var(--z-popover);
+    padding: var(--space-3);
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+
+    &--right {
+      left: auto;
+      right: 0;
+    }
+  }
+
+  &__arrow {
+    position: absolute;
+    top: -6px;
+    left: 16px;
+    width: 12px;
+    height: 12px;
+    background: var(--bg-surface);
+    border-left: 1px solid var(--border-muted);
+    border-top: 1px solid var(--border-muted);
+    transform: rotate(45deg);
+  }
+
+  &__panel--right &__arrow {
+    left: auto;
+    right: 16px;
+  }
 }
