@@ -1,0 +1,43 @@
+// =============================================================
+// SCSS mixins & helpers for the design system
+// =============================================================
+
+// Breakpoints (match pattern-reference §4)
+$breakpoints: (
+  "lg": 768px,
+  "md": 600px,
+  "sm": 475px,
+) !default;
+
+// Mobile-first-down: styles apply at/below the given breakpoint.
+// Usage: @include respond-to("lg") { ... }
+@mixin respond-to($name) {
+  @if map-has-key($breakpoints, $name) {
+    @media (max-width: map-get($breakpoints, $name)) {
+      @content;
+    }
+  } @else {
+    @warn "Unknown breakpoint `#{$name}`. Available: #{map-keys($breakpoints)}.";
+  }
+}
+
+// Focus ring consistent with --shadow-focus token.
+@mixin focus-ring {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: var(--shadow-focus);
+}
+
+// Respect user's reduced-motion preference.
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+// Truncate a single line of text with an ellipsis.
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

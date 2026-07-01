@@ -52,16 +52,16 @@ $letter-spacing: (
   widest: 0.1em
 ) !default;
 
-// Text Colors
+// Text Colors — resolve to design tokens so type stays themeable
 $text-colors: (
-  primary: #333,
-  secondary: #666,
-  muted: #888,
-  inverse: #fff,
-  success: #10b981,
-  warning: #f59e0b,
-  error: #ef4444,
-  info: #3b82f6
+  primary: var(--text-primary),
+  secondary: var(--text-secondary),
+  muted: var(--text-disabled),
+  inverse: var(--text-white),
+  success: var(--color-success),
+  warning: var(--color-warning),
+  error: var(--color-error),
+  info: var(--color-info)
 ) !default;
 
 // Base Text Utilities

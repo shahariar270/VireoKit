@@ -1,10 +1,15 @@
+// =============================================================
+// Design system global entry
+// Import order: mixins (defs) -> tokens -> reset -> type -> components
+// =============================================================
 
-//common styles
-@import './common/typography';
+// foundation
+@import './common/mixins';
 @import './common/root';
+@import './common/reset';
+@import './common/typography';
 
-
-//components styles
+// components
 @import './Component/button';
 @import './Component/loading';
 @import './Component/notification';
