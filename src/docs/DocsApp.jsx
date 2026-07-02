@@ -15,6 +15,7 @@ import DrawerDoc from "./pages/DrawerDoc";
 import PopoverDoc from "./pages/PopoverDoc";
 import ToastDoc from "./pages/ToastDoc";
 import LoadingDoc from "./pages/LoadingDoc";
+import SkeletonDoc from "./pages/SkeletonDoc";
 import TableDoc from "./pages/TableDoc";
 import PaginationDoc from "./pages/PaginationDoc";
 import TabsDoc from "./pages/TabsDoc";
@@ -37,6 +38,7 @@ function DocsRoutes() {
         <Route path="/components/popover" element={<PopoverDoc />} />
         <Route path="/components/toast" element={<ToastDoc />} />
         <Route path="/components/loading" element={<LoadingDoc />} />
+        <Route path="/components/skeleton" element={<SkeletonDoc />} />
         <Route path="/components/table" element={<TableDoc />} />
         <Route path="/components/pagination" element={<PaginationDoc />} />
         <Route path="/components/tabs" element={<TabsDoc />} />
