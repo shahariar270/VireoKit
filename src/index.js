@@ -19,6 +19,7 @@ export { Modal } from "./components/Modal";
 export { default as Drawer } from "./components/drawer";
 export { Popover } from "./components/Popover";
 export { Loading } from "./components/Loading";
+export { Skeleton } from "./components/Skeleton";
 export { NotificationProvider, useNotification } from "./components/Notifications";
 
 // data & navigation
