@@ -52,11 +52,14 @@ Overlays & feedback: `Modal`, `Drawer`, `Popover`, `NotificationProvider`/`useNo
 Data & nav: `Table`, `TableContainer`, `Pagination`, `Tab`, `Breadcrumb` ·
 Layout: `Layout`, `Sidebar`, `Topbar`.
 
-## Develop
+## Documentation
+
+The project runs its own docs website — a page per component with live, copyable
+examples, props tables, a theming/tokens guide, and a full dashboard demo.
 
 ```bash
-npm run dev            # Vite playground
-npm run storybook      # component catalog + token docs (port 6006)
+npm run dev            # docs site (component-wise examples + Live Demo)
+npm run storybook      # Storybook catalog (port 6006)
 npm run build:pkg      # build dist/index.js + dist/style.css (library)
 ```
 

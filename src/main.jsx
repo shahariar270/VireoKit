@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-import App from './App'
+import DocsApp from './docs/DocsApp'
 import './assets/styles/global.scss'
 import './demo.scss'
 import { ThemeProvider } from './theme/ThemeProvider'
@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <ThemeProvider defaultTheme="light">
         <NotificationProvider>
-          <App />
+          <DocsApp />
         </NotificationProvider>
       </ThemeProvider>
     </BrowserRouter>
