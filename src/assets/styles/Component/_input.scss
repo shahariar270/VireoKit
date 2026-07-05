@@ -1,0 +1,71 @@
+@use '../common/mixins' as *;
+
+.st-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+
+  &__label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  &__required {
+    color: var(--color-error);
+    margin-left: 2px;
+  }
+
+  &__field {
+    width: 100%;
+    padding: 12px 16px;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+    background-color: var(--bg-muted);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-base);
+
+    &::placeholder {
+      color: var(--text-secondary);
+      opacity: 0.6;
+    }
+
+    &:focus {
+      background-color: var(--bg-surface);
+      @include focus-ring;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  textarea.st-input-group__field {
+    min-height: 110px;
+    resize: vertical;
+    line-height: 1.5;
+  }
+
+  &--error &__field {
+    border-color: var(--color-error);
+    background-color: var(--color-error-bg);
+
+    &:focus {
+      box-shadow: 0 0 0 4px var(--color-error-bg);
+    }
+  }
+
+  &__message {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+  }
+
+  &--error &__message {
+    color: var(--color-error);
+    font-weight: 500;
+  }
+}

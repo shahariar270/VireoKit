@@ -1,16 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-import App from './App'
+import DocsApp from './docs/DocsApp'
 import './assets/styles/global.scss'
+import './demo.scss'
+import { ThemeProvider } from './theme/ThemeProvider'
 import { NotificationProvider } from './components/Notifications'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <NotificationProvider>
-        <App />
-      </NotificationProvider>
+      <ThemeProvider defaultTheme="light">
+        <NotificationProvider>
+          <DocsApp />
+        </NotificationProvider>
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
 )

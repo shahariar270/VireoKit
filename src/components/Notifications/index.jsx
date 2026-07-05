@@ -1,38 +1,82 @@
-// NotificationContext.js
-import { createContext, useContext, useState } from 'react';
+import { createContext, useCallback, useContext, useMemo, useState } from "react";
+import PropTypes from "prop-types";
 
-const NotificationContext = createContext();
+const NotificationContext = createContext(null);
 
 export const useNotification = () => useContext(NotificationContext);
 
-export const NotificationProvider = ({ children }) => {
-    const [notifications, setNotifications] = useState([]);
+const ICONS = {
+  info: "ℹ",
+  success: "✓",
+  warning: "⚠",
+  error: "✕",
+};
 
-    const showNotification = ({ type = "info", message }) => {
-        const id = Date.now();
+/**
+ * NotificationProvider — toast host + `useNotification()` hook.
+ *
+ * @example
+ * const { showNotification } = useNotification();
+ * showNotification({ type: "success", title: "Saved", message: "All good" });
+ */
+export const NotificationProvider = ({ children, duration = 3000 }) => {
+  const [toasts, setToasts] = useState([]);
 
-        setNotifications((prev) => [...prev, { id, type, message }]);
+  const removeNotification = useCallback((id) => {
+    setToasts((prev) => prev.filter((n) => n.id !== id));
+  }, []);
 
-        setTimeout(() => {
-            removeNotification(id);
-        }, 3000);
-    };
+  const showNotification = useCallback(
+    ({ type = "info", message, title, duration: d } = {}) => {
+      const id = Date.now() + Math.random();
+      setToasts((prev) => [...prev, { id, type, message, title }]);
+      const timeout = d ?? duration;
+      if (timeout > 0) {
+        setTimeout(() => removeNotification(id), timeout);
+      }
+      return id;
+    },
+    [duration, removeNotification]
+  );
 
-    const removeNotification = (id) => {
-        setNotifications((prev) => prev.filter((n) => n.id !== id));
-    };
+  const value = useMemo(
+    () => ({ showNotification, removeNotification }),
+    [showNotification, removeNotification]
+  );
 
-    return (
-        <NotificationContext.Provider value={{ showNotification }}>
-            {children}
-            <div className="notification-wrapper">
-                {notifications.map((n) => (
-                    <div key={n.id} className={`notification ${n.type}`}>
-                        <span>{n.message}</span>
-                        <button onClick={() => removeNotification(n.id)}>✕</button>
-                    </div>
-                ))}
+  return (
+    <NotificationContext.Provider value={value}>
+      {children}
+      <div className="st-toast-wrapper">
+        {toasts.map((n) => (
+          <div
+            key={n.id}
+            className={`st-toast st-toast--${n.type}`}
+            role="alert"
+          >
+            <span className="st-toast__icon" aria-hidden="true">
+              {ICONS[n.type] || ICONS.info}
+            </span>
+            <div className="st-toast__body">
+              {n.title && <div className="st-toast__title">{n.title}</div>}
+              {n.message && <div className="st-toast__message">{n.message}</div>}
             </div>
-        </NotificationContext.Provider>
-    );
+            <button
+              type="button"
+              className="st-toast__close"
+              onClick={() => removeNotification(n.id)}
+              aria-label="Dismiss"
+            >
+              ✕
+            </button>
+          </div>
+        ))}
+      </div>
+    </NotificationContext.Provider>
+  );
+};
+
+NotificationProvider.propTypes = {
+  children: PropTypes.node,
+  duration: PropTypes.number,
 };

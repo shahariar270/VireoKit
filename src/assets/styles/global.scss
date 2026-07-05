@@ -1,15 +1,28 @@
+// =============================================================
+// Design system global entry
+// Import order: tokens -> reset -> type -> components
+// (mixins are @use'd directly by the partials that need them)
+// =============================================================
 
-//common styles
-@import './common/typography';
-@import './common/root';
+// foundation
+@use './common/root';
+@use './common/reset';
+@use './common/typography';
 
-
-//components styles
-@import './Component/button';
-@import './Component/loading';
-@import './Component/notification';
-@import './Component/table';
-@import './Component/modal';
-@import './Component/popovers';
-@import './Component/tab';
-@import './Component/drawer';
+// components
+@use './Component/button';
+@use './Component/input';
+@use './Component/select';
+@use './Component/badge';
+@use './Component/icon';
+@use './Component/loading';
+@use './Component/skeleton';
+@use './Component/notification';
+@use './Component/table';
+@use './Component/pagination';
+@use './Component/modal';
+@use './Component/popovers';
+@use './Component/tab';
+@use './Component/drawer';
+@use './Component/breadcrumb';
+@use './Component/layout';

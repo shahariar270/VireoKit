@@ -1,37 +1,83 @@
-.overlay {
+@use '../common/mixins' as *;
+
+.st-drawer-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: var(--overlay-backdrop);
   opacity: 0;
   pointer-events: none;
-  transition: 0.3s;
+  transition: opacity 0.3s var(--ease-standard);
+  z-index: var(--z-drawer);
+
+  &--show {
+    opacity: 1;
+    pointer-events: all;
+  }
 }
 
-.overlay.show {
-  opacity: 1;
-  pointer-events: all;
-}
-
-/* Drawer */
-.drawer {
+.st-drawer {
   position: fixed;
   top: 0;
-  right: 0;
-  width: 300px;
   height: 100vh;
-  background: white;
-  transform: translateX(100%);
-  transition: 0.3s ease;
-  padding: 20px;
-}
+  width: 320px;
+  max-width: 90vw;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-premium);
+  padding: var(--space-5);
+  z-index: var(--z-drawer);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s var(--ease-standard);
 
-.drawer.open {
-  transform: translateX(0);
-}
+  // right (default)
+  &--right {
+    right: 0;
+    transform: translateX(100%);
+  }
+  &--left {
+    left: 0;
+    transform: translateX(-100%);
+  }
 
-.close-btn {
-  border: none;
-  background: none;
-  font-size: 22px;
-  cursor: pointer;
+  &--open {
+    transform: translateX(0);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  &__title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  &__close {
+    border: none;
+    background: none;
+    font-size: 20px;
+    line-height: 1;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition-fast);
+
+    &:hover {
+      color: var(--text-primary);
+    }
+    &:focus-visible {
+      @include focus-ring;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  &__body {
+    flex: 1;
+    overflow-y: auto;
+  }
 }

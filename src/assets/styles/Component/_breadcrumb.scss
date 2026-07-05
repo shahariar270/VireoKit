@@ -1,0 +1,35 @@
+@use '../common/mixins' as *;
+
+.st-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+
+  &__link {
+    color: var(--color-primary);
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: var(--transition-fast);
+
+    &:hover {
+      text-decoration: underline;
+    }
+    &:focus-visible {
+      @include focus-ring;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  &__separator {
+    color: var(--text-disabled);
+    user-select: none;
+  }
+
+  &__current {
+    color: var(--text-secondary);
+    text-transform: capitalize;
+  }
+}

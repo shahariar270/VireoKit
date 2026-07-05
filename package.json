@@ -1,25 +1,53 @@
 {
-  "name": "protfolio",
+  "name": "@shahariar/design-system",
+  "description": "A themeable React + SCSS component library",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    },
+    "./styles": "./dist/style.css",
+    "./scss": "./src/assets/styles/global.scss"
+  },
+  "files": [
+    "dist",
+    "src/assets/styles"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "build:lib": "vite build --config vite.lib.config.js",
+    "build:css": "sass src/assets/styles/global.scss dist/style.css --style=compressed --no-source-map",
+    "build:pkg": "npm run build:lib && npm run build:css",
+    "prepublishOnly": "npm run build:pkg"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "react-router-dom": ">=6"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.8.2",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-router": "^6.30.0",
-    "react-router-dom": "^6.30.0",
-    "react-youtube": "^10.1.0",
-    "sass": "^1.89.0"
+    "prop-types": "^15.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
+    "@reduxjs/toolkit": "^2.8.2",
+    "@storybook/addon-a11y": "^8.6.18",
+    "@storybook/addon-essentials": "^8.6.14",
+    "@storybook/addon-themes": "^8.6.18",
+    "@storybook/react-vite": "^8.6.18",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
@@ -27,6 +55,13 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router": "^6.30.0",
+    "react-router-dom": "^6.30.0",
+    "react-youtube": "^10.1.0",
+    "sass": "^1.89.0",
+    "storybook": "^8.6.18",
     "vite": "^6.3.5"
   }
 }

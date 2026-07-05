@@ -1,27 +1,124 @@
+// =============================================================
+// Design tokens — single source of truth (CSS custom properties)
+// Reference the variable *name* in components, never a literal.
+// Swap themes by overriding these on :root or [data-theme].
+// =============================================================
+
 :root {
-    --color-primary-hover: #8ec5fc;
-    --color-primary: #2988ee;
+  // ---- Brand / accent ----
+  --color-primary: #2988ee;
+  --color-primary-hover: #8ec5fc;
 
-    --color-secondary: #fff6f2;
-    --color-secondary-hover: #ffe7de;
+  --color-secondary: #fff6f2;
+  --color-secondary-hover: #ffe7de;
 
-    --text-primary: #2f3a4a;
-    --text-secondary: #5a6b7b;
-    --text-disabled: #9aa8b6;
-    --text-white: #ffffff;
+  // ---- Semantic status ----
+  --color-success: #22c55e;
+  --color-success-bg: rgba(34, 197, 94, 0.12);
+  --color-warning: #f59e0b;
+  --color-warning-bg: rgba(245, 158, 11, 0.12);
+  --color-error: #ef4444;
+  --color-error-bg: rgba(239, 68, 68, 0.12);
+  --color-info: #3b82f6;
+  --color-info-bg: rgba(59, 130, 246, 0.12);
 
-    --bg-body: #f5f9ff;
-    --bg-surface: #ffffff;
-    --bg-secondary: #fff1ec;
-    --bg-muted: #eef3fa;
+  // ---- Text ----
+  --text-primary: #2f3a4a;
+  --text-secondary: #5a6b7b;
+  --text-disabled: #9aa8b6;
+  --text-white: #ffffff;
 
-    --border-default: #e3eaf3;
-    --border-muted: #edf2f7;
-    --border-focus: #8ec5fc;
+  // ---- Backgrounds / surfaces ----
+  --bg-body: #f5f9ff;
+  --bg-surface: #ffffff;
+  --bg-secondary: #fff1ec;
+  --bg-muted: #eef3fa;
 
-    --transparent: rgba(0, 0, 0, 0);
-    --overlay-light: rgba(47, 58, 74, 0.08);
-    --overlay-dark: rgba(47, 58, 74, 0.16);
+  // ---- Borders ----
+  --border-default: #e3eaf3;
+  --border-muted: #edf2f7;
+  --border-focus: #8ec5fc;
 
-    
+  // ---- Overlays ----
+  --transparent: rgba(0, 0, 0, 0);
+  --overlay-light: rgba(47, 58, 74, 0.08);
+  --overlay-dark: rgba(47, 58, 74, 0.16);
+  --overlay-backdrop: rgba(0, 0, 0, 0.5);
+
+  // ---- Spacing scale ----
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  // ---- Radius ----
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  // ---- Elevation / shadow ----
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.12);
+  --shadow-focus: 0 0 0 4px rgba(41, 136, 238, 0.15);
+
+  // ---- Motion ----
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: all 0.15s var(--ease-standard);
+  --transition-base: all 0.25s var(--ease-standard);
+  --transition-slow: all 0.4s var(--ease-standard);
+
+  // ---- Z-index scale ----
+  --z-base: 1;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-drawer: 1030;
+  --z-modal: 1040;
+  --z-popover: 1050;
+  --z-toast: 9999;
+
+  // ---- Typography ----
+  --font-sans: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
+}
+
+// =============================================================
+// Dark theme — override the same tokens
+// Toggle with <html data-theme="dark"> (see ThemeProvider).
+// =============================================================
+
+[data-theme="dark"] {
+  --color-primary: #14b8a6;
+  --color-primary-hover: #2dd4bf;
+
+  --color-secondary: #1e293b;
+  --color-secondary-hover: #334155;
+
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-disabled: #64748b;
+  --text-white: #ffffff;
+
+  --bg-body: #0b1220;
+  --bg-surface: #111c31;
+  --bg-secondary: #0f172a;
+  --bg-muted: #1e293b;
+
+  --border-default: #334155;
+  --border-muted: #1e293b;
+  --border-focus: #2dd4bf;
+
+  --overlay-light: rgba(255, 255, 255, 0.06);
+  --overlay-dark: rgba(255, 255, 255, 0.12);
+  --overlay-backdrop: rgba(0, 0, 0, 0.7);
+
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.32);
+  --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.5);
+  --shadow-focus: 0 0 0 4px rgba(45, 212, 191, 0.25);
 }
