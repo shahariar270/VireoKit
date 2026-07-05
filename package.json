@@ -1,9 +1,11 @@
 {
-  "name": "@shahariar/design-system",
+  "name": "shahariar-design-system",
   "description": "A themeable React + SCSS component library",
-  "private": true,
   "version": "0.1.0",
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "sideEffects": [
     "**/*.css",
     "**/*.scss"

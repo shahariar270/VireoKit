@@ -1,4 +1,4 @@
-# @shahariar/design-system
+# shahariar-design-system
 
 A themeable **React + SCSS** component library — 17 components spanning primitives,
 overlays, data, and layout, all driven by CSS-variable design tokens with built-in
@@ -10,7 +10,7 @@ light/dark theming.
 ## Install
 
 ```bash
-npm install @shahariar/design-system
+npm install shahariar-design-system
 # peers: react >=18, react-dom >=18, react-router-dom >=6
 ```
 
@@ -23,8 +23,8 @@ import {
   ThemeProvider,
   NotificationProvider,
   Button,
-} from "@shahariar/design-system";
-import "@shahariar/design-system/styles"; // ships dist/style.css
+} from "shahariar-design-system";
+import "shahariar-design-system/styles"; // ships dist/style.css
 
 export default function App() {
   return (
@@ -41,7 +41,7 @@ Prefer to compile the SCSS yourself (to reuse tokens/mixins)? Import the source 
 instead of the built CSS:
 
 ```scss
-@use "@shahariar/design-system/scss";
+@use "shahariar-design-system/scss";
 ```
 
 ## Theming
@@ -51,7 +51,7 @@ Every design decision is a CSS custom property on `:root`, overridden under
 swap. Toggle with the bundled provider:
 
 ```jsx
-import { useTheme } from "@shahariar/design-system";
+import { useTheme } from "shahariar-design-system";
 const { theme, toggleTheme } = useTheme();
 ```
 
