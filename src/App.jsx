@@ -270,7 +270,7 @@ export default function App() {
       <div className="demo__page-head">
         <div>
           <h1 className="demo__title">{pageLabel}</h1>
-          <p className="demo__subtitle">Built entirely with shahariar-design-system components.</p>
+          <p className="demo__subtitle">Built entirely with stui components.</p>
         </div>
       </div>
 

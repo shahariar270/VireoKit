@@ -16,7 +16,7 @@ export default function LayoutDoc() {
       </p>
 
       <CodeBlock
-        code={`import { Layout, Sidebar, Topbar, Breadcrumb, Button } from "shahariar-design-system";
+        code={`import { Layout, Sidebar, Topbar, Breadcrumb, Button } from "stui";
 
 const [open, setOpen] = useState(false);
 

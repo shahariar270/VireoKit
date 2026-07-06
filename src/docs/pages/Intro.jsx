@@ -5,21 +5,21 @@ import { CodeBlock } from "../CodeBlock";
 export default function Intro() {
   return (
     <Page
-      title="shahariar-design-system"
+      title="stui"
       lead="A themeable React + SCSS component library. Design-token driven, accessible, and light/dark ready — every component documented here with live, copyable examples."
     >
       <h2>Installation</h2>
       <CodeBlock
         language="bash"
-        code={`npm install shahariar-design-system
+        code={`npm install stui
 # peers: react >=18, react-dom >=18, react-router-dom >=6`}
       />
 
       <h2>Quick start</h2>
       <p>Wrap your app once, import the stylesheet, then use any component.</p>
       <CodeBlock
-        code={`import { ThemeProvider, NotificationProvider, Button } from "shahariar-design-system";
-import "shahariar-design-system/styles";
+        code={`import { ThemeProvider, NotificationProvider, Button } from "stui";
+import "stui/styles";
 
 export default function App() {
   return (
