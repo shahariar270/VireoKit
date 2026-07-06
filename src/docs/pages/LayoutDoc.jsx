@@ -16,7 +16,7 @@ export default function LayoutDoc() {
       </p>
 
       <CodeBlock
-        code={`import { Layout, Sidebar, Topbar, Breadcrumb, Button } from "@shahariarofficial/stui";
+        code={`import { Layout, Sidebar, Topbar, Breadcrumb, Button } from "vireokit";
 
 const [open, setOpen] = useState(false);
 

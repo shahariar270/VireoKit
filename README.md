@@ -1,4 +1,6 @@
-# @shahariarofficial/stui
+# VireoKit
+
+> npm package name: `vireokit`
 
 A themeable **React + SCSS** component library — 17 components spanning primitives,
 overlays, data, and layout, all driven by CSS-variable design tokens with built-in
@@ -10,7 +12,7 @@ light/dark theming.
 ## Install
 
 ```bash
-npm install @shahariarofficial/stui
+npm install vireokit
 # peers: react >=18, react-dom >=18, react-router-dom >=6
 ```
 
@@ -24,7 +26,7 @@ import {
   ThemeProvider,
   NotificationProvider,
   Button,
-} from "@shahariarofficial/stui";
+} from "vireokit";
 
 export default function App() {
   return (
@@ -40,13 +42,13 @@ export default function App() {
 Need the stylesheet on its own (e.g. to control load order)? Import it explicitly:
 
 ```js
-import "@shahariarofficial/stui/styles"; // dist/style.css
+import "vireokit/styles"; // dist/style.css
 ```
 
 Prefer to compile the SCSS yourself (to reuse tokens/mixins)? Import the source entry:
 
 ```scss
-@use "@shahariarofficial/stui/scss";
+@use "vireokit/scss";
 ```
 
 ## Theming
@@ -56,7 +58,7 @@ Every design decision is a CSS custom property on `:root`, overridden under
 swap. Toggle with the bundled provider:
 
 ```jsx
-import { useTheme } from "@shahariarofficial/stui";
+import { useTheme } from "vireokit";
 const { theme, toggleTheme } = useTheme();
 ```
 

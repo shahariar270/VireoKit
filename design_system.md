@@ -5,7 +5,7 @@ A plan for turning this repo (`G:/react/designSystem`) into a real, reusable, th
 > **Decisions locked for v1**
 > - **Docs/preview:** Storybook (Storybook 8 on Vite).
 > - **Language:** stay **JSX + PropTypes/JSDoc** (all three consumer apps use JSX/`jsconfig`; TypeScript is a possible later upgrade, not v1).
-> - **Distribution:** build **standalone first**, then ship it as a proper **npm component library** (`@shahariarofficial/stui`) that any app installs and imports from. This is the eventual target (see [Phase 6](#phase-6--npm-component-library-future)); it is **not** a v1 blocker.
+> - **Distribution:** build **standalone first**, then ship it as a proper **npm component library** (`vireokit`) that any app installs and imports from. This is the eventual target (see [Phase 6](#phase-6--npm-component-library-future)); it is **not** a v1 blocker.
 
 ---
 
@@ -74,7 +74,7 @@ src/
 > **Build status (branch `st-pakage-build`):** Phases 0–6 complete — all components (incl. Icon + Layout shell), Sass `@use` migration, Storybook, and the npm library build (`dist/index.js` + `dist/style.css`) are shipped and pushed. Remaining polish: skeleton Loading variant, `.d.ts` types, CI/Changesets release, and consumer adoption.
 
 ### Phase 0 — Project hygiene
-- [x] Rename `package.json` `name` to `@shahariarofficial/stui` (scoped, for future publish).
+- [x] Rename `package.json` `name` to `vireokit` (scoped, for future publish).
 - [ ] Move `practice/` and playground code out of the component path (keep in a `sandbox/` route or delete).
 - [x] Ensure `npm run build` is clean (only Sass `@import`/global-builtin deprecation warnings remain — see below).
 - [x] Style-file location decided: keep central `src/assets/styles/Component/` partials.
@@ -115,7 +115,7 @@ src/
 
 ### Phase 6 — npm component library
 
-Goal: publish this as an installable, tree-shakeable React component library so any app does `npm i @shahariarofficial/stui` and `import { Button } from '@shahariarofficial/stui'`.
+Goal: publish this as an installable, tree-shakeable React component library so any app does `npm i vireokit` and `import { Button } from 'vireokit'`.
 
 **Build & bundle**
 - [x] Vite **library mode** (`vite.lib.config.js`, `build.lib`) with `react`/`react-dom`/`react-router-dom`/`prop-types` external; emits **ESM** `dist/index.js`.
@@ -123,7 +123,7 @@ Goal: publish this as an installable, tree-shakeable React component library so 
 - [x] `"sideEffects": ["**/*.css","**/*.scss"]` for tree-shaking. _( `.d.ts` types still TODO.)_
 
 **Package manifest (`package.json`)**
-- [x] `"name": "@shahariarofficial/stui"`, semver `"version"`, `"type": "module"`.
+- [x] `"name": "vireokit"`, semver `"version"`, `"type": "module"`.
 - [x] `"exports"` map (`.` + `./styles` + `./scss`), `"main"`/`"module"`, `"files": ["dist","src/assets/styles"]`.
 - [x] `react`/`react-dom`/`react-router-dom` moved to `"peerDependencies"`; app-only deps (redux, react-youtube) demoted to devDeps.
 - [x] `"prepublishOnly": "npm run build:pkg"`.
@@ -155,7 +155,7 @@ Goal: publish this as an installable, tree-shakeable React component library so 
 | **M2 — Primitives + Storybook** | Phase 2 + 5 (bootstrap) | Button/Input/Select/Badge/Icon shipped with stories |
 | **M3 — Overlays & Feedback** | Phase 3 | Modal/Drawer/Popover/Toast/Loading done + stories |
 | **M4 — Data & Nav** | Phase 4 | Table/Pagination/Tabs/Breadcrumb/Layout done + stories |
-| **M5 — npm library & adopt** | Phase 6 | Published as `@shahariarofficial/stui` on a registry + one app migrated to the package |
+| **M5 — npm library & adopt** | Phase 6 | Published as `vireokit` on a registry + one app migrated to the package |
 
 ## 7. Open Decisions (revisit before the relevant phase)
 

@@ -1,7 +1,7 @@
 // =============================================================
-// @shahariarofficial/stui — public entry (barrel export)
-// Consumers: import { Button, Modal } from "@shahariarofficial/stui";
-// Styles:    import "@shahariarofficial/stui/styles";  (see package exports)
+// vireokit — public entry (barrel export)
+// Consumers: import { Button, Modal } from "vireokit";
+// Styles:    import "vireokit/styles";  (see package exports)
 // =============================================================
 
 // theme
