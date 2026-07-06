@@ -16,7 +16,8 @@ npm install shahariar-design-system
 
 ## Usage
 
-Wrap your app once, import the stylesheet, then use any component:
+Styles load automatically with the components (the package entry imports its own
+CSS), so you only need to wrap your app and use any component:
 
 ```jsx
 import {
@@ -24,7 +25,6 @@ import {
   NotificationProvider,
   Button,
 } from "shahariar-design-system";
-import "shahariar-design-system/styles"; // ships dist/style.css
 
 export default function App() {
   return (
@@ -37,8 +37,13 @@ export default function App() {
 }
 ```
 
-Prefer to compile the SCSS yourself (to reuse tokens/mixins)? Import the source entry
-instead of the built CSS:
+Need the stylesheet on its own (e.g. to control load order)? Import it explicitly:
+
+```js
+import "shahariar-design-system/styles"; // dist/style.css
+```
+
+Prefer to compile the SCSS yourself (to reuse tokens/mixins)? Import the source entry:
 
 ```scss
 @use "shahariar-design-system/scss";
