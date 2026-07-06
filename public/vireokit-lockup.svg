@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="236" height="64" viewBox="0 0 236 64" fill="none">
+  <path d="M13 13 L32 51 L44 27" stroke="#2F3A2A" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+  <circle cx="51" cy="13" r="6" fill="#E3C44B"></circle>
+  <text x="72" y="43" font-family="Space Grotesk, system-ui, sans-serif" font-size="30" font-weight="600" letter-spacing="-0.6" fill="#2F3A2A">Vireo<tspan fill="#7A8B45">Kit</tspan></text>
+</svg>

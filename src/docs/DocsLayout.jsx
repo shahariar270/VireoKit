@@ -2,7 +2,6 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { NAV_GROUPS } from "./registry";
-import { Logo } from "./Logo";
 import { Icon } from "../components/Icon";
 import { Button } from "../index";
 import { useTheme } from "../theme/ThemeProvider";
@@ -23,7 +22,7 @@ export const DocsLayout = ({ children }) => {
           <Icon name="menu" size={22} />
         </button>
         <NavLink to="/" className="doc-topbar__brand">
-          <Logo size={26} />
+          <img src="/vireokit-lockup.svg" alt="VireoKit" height="28" />
         </NavLink>
         <div className="doc-topbar__right">
           <Button size="sm" variant="secondary" onClick={toggleTheme}>
