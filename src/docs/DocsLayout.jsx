@@ -22,7 +22,7 @@ export const DocsLayout = ({ children }) => {
           <Icon name="menu" size={22} />
         </button>
         <NavLink to="/" className="doc-topbar__brand">
-          <Icon name="plus" size={18} /> stui
+          <Icon name="plus" size={18} /> @shahariarofficial/stui
         </NavLink>
         <div className="doc-topbar__right">
           <Button size="sm" variant="secondary" onClick={toggleTheme}>

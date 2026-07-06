@@ -1,4 +1,4 @@
-# stui
+# @shahariarofficial/stui
 
 A themeable **React + SCSS** component library — 17 components spanning primitives,
 overlays, data, and layout, all driven by CSS-variable design tokens with built-in
@@ -10,7 +10,7 @@ light/dark theming.
 ## Install
 
 ```bash
-npm install stui
+npm install @shahariarofficial/stui
 # peers: react >=18, react-dom >=18, react-router-dom >=6
 ```
 
@@ -24,7 +24,7 @@ import {
   ThemeProvider,
   NotificationProvider,
   Button,
-} from "stui";
+} from "@shahariarofficial/stui";
 
 export default function App() {
   return (
@@ -40,13 +40,13 @@ export default function App() {
 Need the stylesheet on its own (e.g. to control load order)? Import it explicitly:
 
 ```js
-import "stui/styles"; // dist/style.css
+import "@shahariarofficial/stui/styles"; // dist/style.css
 ```
 
 Prefer to compile the SCSS yourself (to reuse tokens/mixins)? Import the source entry:
 
 ```scss
-@use "stui/scss";
+@use "@shahariarofficial/stui/scss";
 ```
 
 ## Theming
@@ -56,7 +56,7 @@ Every design decision is a CSS custom property on `:root`, overridden under
 swap. Toggle with the bundled provider:
 
 ```jsx
-import { useTheme } from "stui";
+import { useTheme } from "@shahariarofficial/stui";
 const { theme, toggleTheme } = useTheme();
 ```
 

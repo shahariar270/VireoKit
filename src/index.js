@@ -1,7 +1,7 @@
 // =============================================================
-// stui — public entry (barrel export)
-// Consumers: import { Button, Modal } from "stui";
-// Styles:    import "stui/styles";  (see package exports)
+// @shahariarofficial/stui — public entry (barrel export)
+// Consumers: import { Button, Modal } from "@shahariarofficial/stui";
+// Styles:    import "@shahariarofficial/stui/styles";  (see package exports)
 // =============================================================
 
 // theme

@@ -1,5 +1,5 @@
 {
-  "name": "stui",
+  "name": "@shahariarofficial/stui",
   "description": "A themeable React + SCSS component library",
   "version": "0.1.1",
   "type": "module",

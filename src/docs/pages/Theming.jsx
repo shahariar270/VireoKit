@@ -65,7 +65,7 @@ export default function Theming() {
 
       <h2>Dark mode</h2>
       <p>Toggle the theme with the bundled provider — it sets <code>data-theme</code> on the document and persists the choice.</p>
-      <Example code={`import { useTheme } from "stui";
+      <Example code={`import { useTheme } from "@shahariarofficial/stui";
 
 const { theme, toggleTheme } = useTheme();
 <Button onClick={toggleTheme}>Toggle</Button>`}>
