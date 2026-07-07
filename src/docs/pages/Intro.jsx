@@ -9,6 +9,13 @@ export default function Intro() {
       lead="A themeable React + SCSS component library. Design-token driven, accessible, and light/dark ready — every component documented here with live, copyable examples."
     >
       <h2>Installation</h2>
+      <p>
+        Published on npm as{" "}
+        <a href="https://www.npmjs.com/package/vireokit" target="_blank" rel="noreferrer">
+          vireokit
+        </a>
+        .
+      </p>
       <CodeBlock
         language="bash"
         code={`npm install vireokit
