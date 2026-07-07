@@ -8,6 +8,16 @@ export default function Intro() {
       title="VireoKit"
       lead="A themeable React + SCSS component library. Design-token driven, accessible, and light/dark ready — every component documented here with live, copyable examples."
     >
+      <p>
+        <a href="https://design-system-delta-lilac.vercel.app/" target="_blank" rel="noreferrer">
+          Live docs
+        </a>
+        {"  ·  "}
+        <a href="https://www.npmjs.com/package/vireokit" target="_blank" rel="noreferrer">
+          npm
+        </a>
+      </p>
+
       <h2>Installation</h2>
       <p>
         Published on npm as{" "}
