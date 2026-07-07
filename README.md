@@ -6,7 +6,7 @@ A themeable **React + SCSS** component library — 17 components spanning primit
 overlays, data, and layout, all driven by CSS-variable design tokens with built-in
 light/dark theming.
 
-- **Live docs:** https://design-system-delta-lilac.vercel.app/
+- **Live docs:** https://vireo-kit.vercel.app/
 - **npm:** https://www.npmjs.com/package/vireokit
 - **Plan:** [design_system.md](./design_system.md)
 - **Extracted pattern spec:** [pattern-reference.md](./pattern-reference.md)

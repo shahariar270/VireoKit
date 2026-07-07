@@ -9,7 +9,7 @@ export default function Intro() {
       lead="A themeable React + SCSS component library. Design-token driven, accessible, and light/dark ready — every component documented here with live, copyable examples."
     >
       <p>
-        <a href="https://design-system-delta-lilac.vercel.app/" target="_blank" rel="noreferrer">
+        <a href="https://vireo-kit.vercel.app/" target="_blank" rel="noreferrer">
           Live docs
         </a>
         {"  ·  "}
