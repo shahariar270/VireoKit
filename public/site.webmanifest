@@ -1,0 +1,17 @@
+{
+  "name": "VireoKit — Shahariar Design System",
+  "short_name": "VireoKit",
+  "description": "A themeable React + SCSS component library and design system by Shahariar.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFDF5",
+  "theme_color": "#2F3A2A",
+  "icons": [
+    {
+      "src": "/vireokit-favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

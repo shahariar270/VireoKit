@@ -1,0 +1,5 @@
+# robots.txt — VireoKit (Shahariar Design System)
+User-agent: *
+Allow: /
+
+Sitemap: https://vireo-kit.vercel.app/sitemap.xml
