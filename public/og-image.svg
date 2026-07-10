@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none" role="img" aria-label="VireoKit — Shahariar Design System">
+  <rect width="1200" height="630" fill="#FFFDF5"/>
+  <rect x="40" y="40" width="1120" height="550" rx="28" fill="#2F3A2A"/>
+
+  <!-- brand mark -->
+  <path d="M120 150 L165 260 L200 190" stroke="#FFFDF5" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="222" cy="150" r="14" fill="#E3C44B"/>
+
+  <!-- wordmark -->
+  <text x="120" y="360" font-family="Space Grotesk, system-ui, sans-serif" font-size="96" font-weight="700" letter-spacing="-2" fill="#FFFDF5">Vireo<tspan fill="#A8BF6A">Kit</tspan></text>
+
+  <!-- tagline -->
+  <text x="120" y="430" font-family="system-ui, sans-serif" font-size="34" font-weight="500" fill="#DDE3CE">Themeable React + SCSS component library</text>
+
+  <!-- attribution / keywords -->
+  <text x="120" y="500" font-family="system-ui, sans-serif" font-size="26" font-weight="400" fill="#A8BF6A">Shahariar Design System · by Shahariar (shahariar270) · Shahariar Agency</text>
+</svg>

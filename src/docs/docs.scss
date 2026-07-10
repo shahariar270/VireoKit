@@ -139,6 +139,29 @@ $doc-topbar-h: 60px;
   }
 }
 
+.doc-footer {
+  max-width: 860px;
+  margin: 64px auto 0;
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border-color, var(--border, rgba(0, 0, 0, 0.1)));
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.6;
+
+  p {
+    margin: 0 0 4px;
+  }
+
+  a {
+    color: var(--color-primary, var(--text-secondary));
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 .doc-page {
   max-width: 860px;
   margin: 0 auto;

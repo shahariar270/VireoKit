@@ -57,7 +57,28 @@ export const DocsLayout = ({ children }) => {
           ))}
         </aside>
 
-        <main className="doc-content">{children}</main>
+        <main className="doc-content">
+          {children}
+          <footer className="doc-footer">
+            <p>
+              <strong>VireoKit</strong> — part of the <strong>Shahariar Design System</strong>.
+              Built and maintained by{" "}
+              <a href="https://github.com/shahariar270" target="_blank" rel="noreferrer">
+                Shahariar (shahariar270)
+              </a>{" "}
+              at Shahariar Agency.
+            </p>
+            <p>
+              <a href="https://www.npmjs.com/package/vireokit" target="_blank" rel="noreferrer">
+                vireokit on npm
+              </a>{" "}
+              ·{" "}
+              <a href="https://vireo-kit.vercel.app/" target="_blank" rel="noreferrer">
+                vireo-kit.vercel.app
+              </a>
+            </p>
+          </footer>
+        </main>
       </div>
     </div>
   );
